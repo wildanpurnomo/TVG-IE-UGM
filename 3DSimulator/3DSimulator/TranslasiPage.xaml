@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="_3DSimulator.TranslasiPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_3DSimulator"
+        xmlns:util="clr-namespace:_3DSimulator.Util"
+        mc:Ignorable="d"
+        d:DesignHeight="435"
+        d:DesignWidth="592">
+    <Grid Background="AliceBlue">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Viewport3D Grid.Row="0" Grid.ColumnSpan="2" x:Name="viewPort3D" >
+            <Viewport3D.Camera>
+                <PerspectiveCamera x:Name="mainCamera"
+                                   LookDirection="-6 -5 -4"
+                                   Position="6,5,4">
+                </PerspectiveCamera>
+            </Viewport3D.Camera>
+            <ModelVisual3D>
+                <ModelVisual3D.Content>
+                    <DirectionalLight x:Name="dirLight" Color="AliceBlue" Direction="-1 -1 -1"></DirectionalLight>
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+            <ModelVisual3D>
+                <ModelVisual3D.Content>
+                    <GeometryModel3D x:Name="cube">
+                        <GeometryModel3D.Geometry>
+                            <MeshGeometry3D x:Name="meshMain"
+                                Positions="0 0 0  1 0 0  0 1 0  1 1 0  0 0 1  1 0 1  0 1 1  1 1 1"
+                                TriangleIndices="2 3 1  2 1 0  7 1 3  7 5 1  6 5 7  6 4 5  6 2 0  2 0 4  2 7 3  2 6 7  0 1 5  0 5 4">
+                            </MeshGeometry3D>
+                        </GeometryModel3D.Geometry>
+
+                        <GeometryModel3D.Material>
+                            <DiffuseMaterial>
+                                <DiffuseMaterial.Brush>
+                                    <SolidColorBrush Color="AliceBlue" Opacity="1"/>
+                                </DiffuseMaterial.Brush>
+                            </DiffuseMaterial>
+                        </GeometryModel3D.Material>
+                    </GeometryModel3D>
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+        </Viewport3D>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Name="slider" Margin="0,50,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="X" FontSize="20" FontFamily="Open Sans" />
+                <Slider x:Name="sliderXValue" Height="29" Width="180" Margin="0 10 0 0" Value="{Binding translateValueX}" Minimum="0" Maximum="3" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+                <TextBox x:Name="boxXValue" Text="{Binding Value, ElementName=sliderXValue, UpdateSourceTrigger=PropertyChanged}" Height="20" Width="30" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="57,0,56,0" Width="232">
+                <Label Content="Y" FontSize="20" FontFamily="Open Sans" />
+                <Slider x:Name="sliderYValue" Height="29" Width="180" Margin="0 10 0 0" Value="{Binding translateValueY}" Minimum="0" Maximum="3" TickFrequency="0.1" IsSnapToTickEnabled="True" />
+                <TextBox x:Name="boxYValue" Text="{Binding Value, ElementName=sliderYValue, UpdateSourceTrigger=PropertyChanged}" Height="20" Width="30" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="59,0,50,0" Width="241">
+                <Label Content="Z" FontSize="20" FontFamily="Open Sans" />
+                <Slider x:Name="sliderZValue" Height="29" Width="180" Margin="0 10 0 0" Value="{Binding translateValueZ}" Minimum="0" Maximum="3" TickFrequency="0.1" IsSnapToTickEnabled="True" />
+                <TextBox x:Name="boxZValue" Text="{Binding Value, ElementName=sliderZValue, UpdateSourceTrigger = PropertyChanged}" Height="20" Width="30" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" Margin="0,93,0,96" Grid.Column="1" >
+            <Button Content="Animate" Height="46" VerticalAlignment="Center" Margin="50,0,50,0" Click="Button_Click"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
